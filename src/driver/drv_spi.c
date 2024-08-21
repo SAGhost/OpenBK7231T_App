@@ -1,4 +1,4 @@
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
 #include "../../beken378/func/user_driver/armino/spi/spi.h"
 #else
 // spi_config_t and its member types are copied from BK7321N SPI implementation.
@@ -17,7 +17,7 @@
 #include "../logging/logging.h"
 
 int SPI_DriverInit(void) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
     return bk_spi_driver_init();
 #elif PLATFORM_BK7231T
 	// Is called in dd.c
@@ -30,7 +30,7 @@ int SPI_DriverInit(void) {
 }
 
 int SPI_DriverDeinit(void) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
     return bk_spi_driver_deinit();
 #elif PLATFORM_BK7231T
 	// Is called in dd.c
@@ -43,7 +43,7 @@ int SPI_DriverDeinit(void) {
 }
 
 int SPI_Init(const spi_config_t *config) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
 	return bk_spi_init(0, config);
 #elif PLATFORM_BK7231T
 	int err = 0;
@@ -100,7 +100,7 @@ int SPI_Init(const spi_config_t *config) {
 }
 
 int SPI_Deinit(void) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
 	return bk_spi_deinit(0);
 #elif PLATFORM_BK7231T
 	int err = 0;
@@ -135,7 +135,7 @@ static inline int Spi_wait_for_ready() {
 #endif
 
 int SPI_WriteBytes(const void *data, uint32_t size) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
     return bk_spi_write_bytes(0, data, size);
 #elif PLATFORM_BK7231T
 	GLOBAL_INT_DECLARATION();
@@ -166,7 +166,7 @@ int SPI_WriteBytes(const void *data, uint32_t size) {
 }
 
 int SPI_ReadBytes(void *data, uint32_t size) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
 	return bk_spi_read_bytes(0, data, size);
 #elif PLATFORM_BK7231T
 	GLOBAL_INT_DECLARATION();
@@ -198,7 +198,7 @@ int SPI_ReadBytes(void *data, uint32_t size) {
 
 int SPI_Transmit(const void *txData, uint32_t txSize, void *rxData,
         uint32_t rxSize) {
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
 	return bk_spi_transmit(0, txData, txSize, rxData, rxSize);
 #elif PLATFORM_BK7231T
 	int err = 0;
