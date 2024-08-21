@@ -148,7 +148,7 @@ void SPILED_SetRawBytes(int start_offset, byte *bytes, int numBytes, int push) {
 
 void SPILED_Init() {
 	uint32_t val;
-#if PLATFORM_BK7231N
+#if PLATFORM_BK7231N || PLATFORM_BL602
 	val = GFUNC_MODE_SPI_USE_GPIO_14;
 	sddev_control(GPIO_DEV_NAME, CMD_GPIO_ENABLE_SECOND, &val);
 
@@ -161,20 +161,9 @@ void SPILED_Init() {
 
 	param = PWD_SPI_CLK_BIT;
 	sddev_control(ICU_DEV_NAME, CMD_CLK_PWR_UP, &param);
-#elif PLATFORM_BL602
-	val = GFUNC_MODE_SPI_USE_GPIO_12;
-	sddev_control(GPIO_DEV_NAME, CMD_GPIO_ENABLE_SECOND, &val);
+#else
 
-	val = GFUNC_MODE_SPI_USE_GPIO_12_13;
-	sddev_control(GPIO_DEV_NAME, CMD_GPIO_ENABLE_SECOND, &val);
-
-	UINT32 param;
-	param = PCLK_POSI_SPI;
-	sddev_control(ICU_DEV_NAME, CMD_CONF_PCLK_26M, &param);
-
-	param = PWD_SPI_CLK_BIT;
-	sddev_control(ICU_DEV_NAME, CMD_CLK_PWR_UP, &param);
-
+	
 #endif
 }
 
