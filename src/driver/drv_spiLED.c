@@ -1,4 +1,4 @@
-#if PLATFORM_BK7231N || WINDOWS
+#if PLATFORM_BK7231N || PLATFORM_BL602 || WINDOWS
 
 
 #include "../new_cfg.h"
@@ -161,8 +161,19 @@ void SPILED_Init() {
 
 	param = PWD_SPI_CLK_BIT;
 	sddev_control(ICU_DEV_NAME, CMD_CLK_PWR_UP, &param);
-#else
+#elif PLATFORM_BL602
+	val = GFUNC_MODE_SPI_USE_GPIO_12;
+	sddev_control(GPIO_DEV_NAME, CMD_GPIO_ENABLE_SECOND, &val);
 
+	val = GFUNC_MODE_SPI_USE_GPIO_12_13;
+	sddev_control(GPIO_DEV_NAME, CMD_GPIO_ENABLE_SECOND, &val);
+
+	UINT32 param;
+	param = PCLK_POSI_SPI;
+	sddev_control(ICU_DEV_NAME, CMD_CONF_PCLK_26M, &param);
+
+	param = PWD_SPI_CLK_BIT;
+	sddev_control(ICU_DEV_NAME, CMD_CLK_PWR_UP, &param);
 
 #endif
 }
